@@ -14,5 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    return response()->json(['success' => false, 'code' => 403, 'message' => 'Unauthorized'], 403);
     return view('welcome');
 });

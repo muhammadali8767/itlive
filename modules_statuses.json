@@ -1,0 +1,7 @@
+{
+    "Blog": true,
+    "Admin": true,
+    "Teacher": true,
+    "Student": true,
+    "Auth": true
+}
