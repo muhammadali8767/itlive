@@ -6,10 +6,7 @@ use App\Http\Controllers\Controller;
 use Modules\Auth\Http\Requests\LoginRequest;
 use Modules\Auth\Http\Requests\RegisterRequest;
 use Modules\Auth\Http\Services\AuthService;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Spatie\Permission\Models\Role;
 
 class AuthController extends Controller
 {
@@ -61,23 +58,9 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        $roleUser = Role::firstOrCreate(['name' => 'user']);
-        $roleAdmin = Role::firstOrCreate(['name' => 'admin']);
+        $responce = AuthService::register($request);
 
-        $user = User::create([
-            "name" => $request->name,
-            "email" => $request->email,
-            "password" => Hash::make($request->password)
-        ]);
-
-        $role = (User::count() > 1) ? $roleUser : $roleAdmin;
-        $user->assignRole($role);
-
-        $token = $user->createToken('auth_token')->plainTextToken;
-        return $this->success([
-            'user' => $user,
-            'token' => $token,
-        ]);
+        return $this->success($responce);
     }
 
     /**
@@ -127,31 +110,53 @@ class AuthController extends Controller
      *          description="Forbidden"
      *      )
      *)
-     **/
-
+     */
     public function login(LoginRequest $request)
     {
-        $credentials = $request->only('email', 'password');
+        $responce = AuthService::login($request);
 
-        if (Auth::attempt($credentials)) {
-            return $this->success([
-                'token' => Auth::user()->createToken('auth_token')->plainTextToken,
-                'name' => Auth::user()->name,
-            ]);
-        } else {
+        if ($responce)
+            return $this->success($responce);
+        else
             return $this->error('Unauthorized', 403);
-        }
     }
 
     /**
-     * @OA
+     * @OA\Post(
+     * path="/api/logout",
+     *   tags={"Auth"},
+     *   summary="Logout",
+     *   operationId="logout",
+     *
+     *   @OA\Response(
+     *      response=201,
+     *       description="Success",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=401,
+     *       description="Unauthenticated"
+     *   ),
+     *   @OA\Response(
+     *      response=400,
+     *      description="Bad Request"
+     *   ),
+     *   @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *)
      */
     public function logout()
     {
-        AuthService::logout();
+        $responce = AuthService::logout();
 
-        return $this->success([
-            'logout' => 'ok',
-        ]);
+        return $this->success($responce);
     }
 }
