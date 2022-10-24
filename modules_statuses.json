@@ -3,5 +3,6 @@
     "Admin": true,
     "Teacher": true,
     "Student": true,
-    "Auth": true
+    "Auth": true,
+    "Front": true
 }

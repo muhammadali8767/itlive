@@ -12,7 +12,7 @@ class AuthController extends Controller
 {
     /**
      * @OA\Post(
-     *      path="/api/register",
+     *      path="/api/auth/register",
      *      operationId="storeUser",
      *      tags={"Auth"},
      *      summary="Store new user",
@@ -65,7 +65,7 @@ class AuthController extends Controller
 
     /**
      * @OA\Post(
-     * path="/api/login",
+     * path="/api/auth/login",
      *   tags={"Auth"},
      *   summary="Login",
      *   operationId="login",
@@ -123,7 +123,7 @@ class AuthController extends Controller
 
     /**
      * @OA\Post(
-     * path="/api/logout",
+     * path="/api/auth/logout",
      *   tags={"Auth"},
      *   summary="Logout",
      *   operationId="logout",
