@@ -16,3 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/front', function (Request $request) {
     return $request->user();
 });
+
+Route::prefix('front')->namespace('front')->middleware('auth:sanctum')->group(function () {
+    Route::get('', [\Modules\Front\Http\Controllers\FrontController::class, 'index']);
+});

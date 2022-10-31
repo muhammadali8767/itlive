@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "ITLive.uz",
-        "description": "ITLive.uz OpenApi description",
+        "description": "ITLive.uz OpenApi",
         "contact": {
             "email": "muhammadali8767@gmail.com"
         },
@@ -132,12 +132,35 @@
                 }
             }
         },
-        "/": {
+        "/api/front/index": {
             "get": {
-                "description": "Home page",
+                "tags": [
+                    "Front"
+                ],
+                "summary": "Site index",
+                "description": "Site index page",
+                "operationId": "siteIndex",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "page": {
+                                        "description": "Page number",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
-                    "default": {
-                        "description": "Welcome page"
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
                     }
                 }
             }

@@ -10,7 +10,7 @@ use Illuminate\Routing\Controller as BaseController;
  * @OA\Info(
  *      version="1.0.0",
  *      title="ITLive.uz",
- *      description="ITLive.uz OpenApi description",
+ *      description="ITLive.uz OpenApi",
  *      @OA\Contact(
  *          email="muhammadali8767@gmail.com"
  *      ),
@@ -18,12 +18,6 @@ use Illuminate\Routing\Controller as BaseController;
  *         name="Apache 2.0",
  *         url="https://www.apache.org/licenses/LICENSE-2.0.html"
  *     )
- * )
- *
- * @OA\Get(
- *     path="/",
- *     description="Home page",
- *     @OA\Response(response="default", description="Welcome page")
  * )
  */
 class Controller extends BaseController

@@ -2,18 +2,49 @@
 
 namespace Modules\Front\Http\Controllers;
 
+use App\Http\Controllers\Controller;
+use App\Models\News;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
 
 class FrontController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     * @return Renderable
+     * @OA\Get (
+     *      path="/api/front/index",
+     *      operationId="siteIndex",
+     *      tags={"Front"},
+     *      summary="Site index",
+     *      description="Site index page",
+     *
+     *      @OA\RequestBody(
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *              @OA\Schema(
+     *                      @OA\Property(
+     *                          property="page",
+     *                          type = "integer",
+     *                          description="Page number"
+     *                      ),
+     *              )
+     *          )
+     *      ),
+     *
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     * )
      */
     public function index()
     {
+        $news = News::paginate(10);
+        return $this->success($news);
+
         return view('front::index');
     }
 
