@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use GuzzleHttp\Psr7\Request;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/register', function () {
-    return 'asd';
+Route::middleware('auth:api')->get('/courses', function (Request $request) {
+    return $request->user();
 });
